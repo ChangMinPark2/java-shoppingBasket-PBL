@@ -33,14 +33,14 @@ public class ShoppingController {
     private void readCart(Cart cart) {
         OutputView.printCart(cart.showItem());
     }
-    private void createCart(String input, Cart cart, Set<Product> products) throws IOException {
+    private void createCart(String input, Cart cart, Set<Product> products) throws Exception {
         if (input.equals("등록")) {
             String[] inputs = InputView.inputProductAndCount();
             Product product = getProductFromSet(products, inputs[0]);
             if (product != null) {
                 cart.addProduct(product.getName(), Integer.parseInt(inputs[1]));
             } else {
-                System.out.println(NOT_HAVE_PRODUCT);
+                throw new Exception("없는 상품을 등록하셨습니다.");
             }
         }
     }
@@ -52,7 +52,7 @@ public class ShoppingController {
             if (product != null) {
                 cart.removeProduct(product.getName());
             } else {
-                System.out.println(NOT_HAVE_PRODUCT);
+                throw new Exception("없는 상품을 제거하셨습니다.");
             }
         }
     }
